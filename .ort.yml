@@ -13,3 +13,11 @@ excludes:
       has no lockfile of its own; this exclude stops ORT from analyzing it as a
       separate project. @synergy-design-system/angular itself is still
       analyzed as a project from packages/angular."
+  - pattern: "packages/metadata/data/**"
+    reason: "DATA_FILE_OF"
+    comment: "Metadata content of @synergy-design-system/metadata: snapshots of
+      each Synergy package's files (including copies of their package.json),
+      published for the package's query API. They are not projects; ORT's NPM
+      analyzer picks the copied manifests up as standalone projects and fails
+      on their workspace: specifiers (\"Unsupported URL Type workspace:\").
+      The real packages are analyzed from their own directories."
