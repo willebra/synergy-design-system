@@ -1,0 +1,13 @@
+excludes:
+  paths:
+  - pattern: "packages/_private/angular-demo/**"
+    reason: "EXAMPLE_OF"
+    comment: "Private, unpublished Angular demo app. It depends on
+      @synergy-design-system/angular via workspace:*, and because that package
+      sets publishConfig.directory to dist, pnpm links the dependency to the
+      build output packages/angular/dist. ORT analyzes an unbuilt checkout, so
+      the link target has no package.json and resolves to the version-less
+      identifier NPM:@synergy-design-system:angular:, which fails the analyzer
+      in checkReferences(). Excluding the demo (skipExcluded) avoids following
+      the link; @synergy-design-system/angular itself is still analyzed as a
+      project from packages/angular."
