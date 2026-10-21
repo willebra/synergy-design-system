@@ -2,12 +2,14 @@ excludes:
   paths:
   - pattern: "packages/_private/angular-demo/**"
     reason: "EXAMPLE_OF"
-    comment: "Private, unpublished Angular demo app. It depends on
-      @synergy-design-system/angular via workspace:*, and because that package
-      sets publishConfig.directory to dist, pnpm links the dependency to the
-      build output packages/angular/dist. ORT analyzes an unbuilt checkout, so
-      the link target has no package.json and resolves to the version-less
-      identifier NPM:@synergy-design-system:angular:, which fails the analyzer
-      in checkReferences(). Excluding the demo (skipExcluded) avoids following
-      the link; @synergy-design-system/angular itself is still analyzed as a
-      project from packages/angular."
+    comment: "Private, unpublished Angular demo app. It is removed from the pnpm
+      workspace (pnpm-workspace.yaml) because it depends on
+      @synergy-design-system/angular, which sets publishConfig.directory to
+      dist, so pnpm links the dependency to the build output
+      packages/angular/dist. ORT analyzes an unbuilt checkout; the link target
+      is neither a workspace project nor an installed package, so the analyzer
+      fails with \"references do not actually refer to packages:
+      'NPM:@synergy-design-system:angular:'\". Outside the workspace the demo
+      has no lockfile of its own; this exclude stops ORT from analyzing it as a
+      separate project. @synergy-design-system/angular itself is still
+      analyzed as a project from packages/angular."

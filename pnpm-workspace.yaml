@@ -1,6 +1,8 @@
 packages:
   - "packages/*"
   - "packages/_private/*"
+  # Built-output link (publishConfig.directory) breaks ORT analysis; demo only
+  - "!packages/_private/angular-demo"
 
 # Make sure that we only allow updates of packages that have been released for at least 24 hours
 minimumReleaseAge: 1440
